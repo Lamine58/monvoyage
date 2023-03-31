@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monvoyage/splash.dart';
 
+
 void main() {
   runApp(const App());
 }
