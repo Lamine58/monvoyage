@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monvoyage/splash.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 void main() {
@@ -14,6 +15,15 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Mon voyage',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''), // English
+        const Locale('fr', ''), // French
+        // add more locales as needed
+      ],
       home: SplashScreen(),
     );
   }

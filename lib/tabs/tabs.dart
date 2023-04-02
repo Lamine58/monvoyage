@@ -22,9 +22,9 @@ class _TabsState extends State<Tabs> {
     List<Widget> _buildScreens() {
         return [
           HomePage(),
-          Text('dd'),
-          Text('dd'),
-          Text('dd')
+          Container(color: Colors.red),
+          Container(color: Colors.yellow),
+          Container(color: Colors.blue),
         ];
     }
     List<PersistentBottomNavBarItem> _navBarsItems() {
