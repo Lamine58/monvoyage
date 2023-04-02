@@ -1,28 +1,35 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:monvoyage/tabs/tabs-pages/home.dart';
+import 'package:monvoyage/tabs/tabs-pages/travels.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Tabs extends StatefulWidget {
-  const Tabs({Key? key}) : super(key: key);
-
+  final index;
+  const Tabs(int this.index, {Key? key}) : super(key: key);
+  
   @override
-  State<Tabs> createState() => _TabsState();
+  State<Tabs> createState() => _TabsState(index);
 }
 
 class _TabsState extends State<Tabs> {
+
+  _TabsState(this.index);
+
+  final int index;
+
   @override
-  
   Widget build(BuildContext context) {
 
     PersistentTabController _controller;
-    _controller = PersistentTabController(initialIndex: 0);
+    _controller = PersistentTabController(initialIndex: index);
     final iconSize = 27.0;
 
     List<Widget> _buildScreens() {
         return [
           HomePage(),
-          Container(color: Colors.red),
+          Travels(),
           Container(color: Colors.yellow),
           Container(color: Colors.blue),
         ];
@@ -30,14 +37,14 @@ class _TabsState extends State<Tabs> {
     List<PersistentBottomNavBarItem> _navBarsItems() {
         return [
             PersistentBottomNavBarItem(
-                icon: const Icon(LucideIcons.home),
+                icon: const Icon(FluentIcons.home_24_regular),
                 title: ("Accueil"),
                 activeColorPrimary: Color(0xFF1b9676),
                 inactiveColorPrimary: Color(0xffc2c2c2),
                 iconSize: iconSize,
             ),
             PersistentBottomNavBarItem(
-                icon: const Icon(LucideIcons.ticket),
+                icon: const Icon(FluentIcons.ticket_diagonal_24_regular),
                 title: ("Mes voyages"),
                 activeColorPrimary: Color(0xFF1b9676),
                 inactiveColorPrimary: Color(0xffc2c2c2),
@@ -51,11 +58,11 @@ class _TabsState extends State<Tabs> {
                 iconSize: iconSize
             ),
             PersistentBottomNavBarItem(
-                icon: const Icon(LucideIcons.settings),
+                icon: const Icon(FluentIcons.settings_24_regular),
                 title: ("Paramétres"),
                 activeColorPrimary: Color(0xFF1b9676),
                 inactiveColorPrimary: Color(0xffc2c2c2),
-                iconSize: iconSize
+                iconSize: iconSize,
             )
         ];
     }

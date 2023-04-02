@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../../widget/custom_radio.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   late DateTime _dateSelected =  DateTime.now();
   late String _choisir = 'Choisir';
   
-   void _changeLocation() {
+  void _changeLocation() {
     setState(() {
 
         String start = _controller_start.text;
@@ -69,14 +68,17 @@ class _HomePageState extends State<HomePage> {
             children: [
               _Title(),
               SizedBox(height: 10),
-              Row(
-                children: [
-                  _TodayRadio(),
-                  SizedBox(width: 10),
-                  _TomorrowRadio(),
-                  SizedBox(width: 10),
-                  _DateRadio(),
-                ],
+              SingleChildScrollView(
+               scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _TodayRadio(),
+                    SizedBox(width: 10),
+                    _TomorrowRadio(),
+                    SizedBox(width: 10),
+                    _DateRadio(),
+                  ],
+                ),
               ),
               SizedBox(height: 20),
               Divider(height: 1,color: Color.fromARGB(90, 27, 150, 117)),
@@ -240,7 +242,23 @@ class _HomePageState extends State<HomePage> {
 
   }
 
+  _modalCalendar(BuildContext context){
 
+    return showCalendarDatePicker2Dialog(
+      context: context,
+      config: CalendarDatePicker2WithActionButtonsConfig(
+        selectedDayTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+        selectedDayHighlightColor: Color(0xFF11392b),
+        centerAlignModePicker: true,
+        customModePickerIcon: SizedBox(),
+        firstDate: DateTime.now(),
+      ),
+      dialogSize: const Size(325, 400),
+      borderRadius: BorderRadius.circular(15),
+      value: [_dateSelected],
+      
+    );
+  }
 
   _AppBar(){
       return Container(
@@ -366,24 +384,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         );
-  }
-
-  _modalCalendar(BuildContext context){
-
-    return showCalendarDatePicker2Dialog(
-      context: context,
-      config: CalendarDatePicker2WithActionButtonsConfig(
-        selectedDayTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-        selectedDayHighlightColor: Color(0xFF11392b),
-        centerAlignModePicker: true,
-        customModePickerIcon: SizedBox(),
-        firstDate: DateTime.now(),
-      ),
-      dialogSize: const Size(325, 400),
-      borderRadius: BorderRadius.circular(15),
-      value: [_dateSelected],
-      
-    );
   }
 }
 

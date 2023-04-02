@@ -53,7 +53,7 @@ class _LangdingPageState extends State<LangdingPage> {
                         onPressed: () {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => Tabs()),
+                            MaterialPageRoute(builder: (context) => Tabs(0)),
                           );
                         },
                         child: const Text(

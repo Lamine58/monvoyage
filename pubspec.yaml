@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.17.0
   flutter_localizations:
     sdk: flutter
+  fluentui_system_icons: ^1.1.198
 
 dev_dependencies:
   flutter_test:
