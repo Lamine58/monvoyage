@@ -157,39 +157,39 @@ class Login extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 16.0),
-                  SizedBox(
-                    height: 55,
-                    child:ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff3b5998),
-                      ),
-                      child:Row(
-                        children : [
-                          Icon(Icons.facebook_sharp),
-                          SizedBox(width:10),
-                          Text('Continuer avec facebook',style: TextStyle(fontSize: 17,color: Colors.white)),
-                        ]
-                      )
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
-                  SizedBox(
-                    height: 55,
-                    child:ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff000000),
-                      ),
-                      child:Row(
-                        children : [
-                          Icon(Icons.apple_outlined),
-                          SizedBox(width:10),
-                          Text('Continuer avec apple',style: TextStyle(fontSize: 17,color: Colors.white)),
-                        ]
-                      )
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: 55,
+                  //   child:ElevatedButton(
+                  //     onPressed: () {},
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Color(0xff3b5998),
+                  //     ),
+                  //     child:Row(
+                  //       children : [
+                  //         Icon(Icons.facebook_sharp),
+                  //         SizedBox(width:10),
+                  //         Text('Continuer avec facebook',style: TextStyle(fontSize: 17,color: Colors.white)),
+                  //       ]
+                  //     )
+                  //   ),
+                  // ),
+                  // SizedBox(height: 16.0),
+                  // SizedBox(
+                  //   height: 55,
+                  //   child:ElevatedButton(
+                  //     onPressed: () {},
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Color(0xff000000),
+                  //     ),
+                  //     child:Row(
+                  //       children : [
+                  //         Icon(Icons.apple_outlined),
+                  //         SizedBox(width:10),
+                  //         Text('Continuer avec apple',style: TextStyle(fontSize: 17,color: Colors.white)),
+                  //       ]
+                  //     )
+                  //   ),
+                  // ),
                 ],
               ),
             ),
