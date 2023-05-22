@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
+import '../../widget/title.dart';
+
 class Travels extends StatefulWidget {
   const Travels({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class _TravelsState extends State<Travels> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _Title(),
+            TitlePage('Mes voyages'),
             SizedBox(height: 20),
             _selectDate(),
             SizedBox(height: 30),
@@ -96,20 +98,6 @@ class _TravelsState extends State<Travels> {
           Icon(FluentIcons.chevron_right_24_filled, color: Color(0xff606c5c),size: 20),
         ],
       ),
-    );
-
-  }
-
-  _Title(){
-
-    return Text(
-      'Mes voyages',
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: Color(0xFF11392b),
-        fontFamily: 'OmegaBolder',
-      )
     );
 
   }

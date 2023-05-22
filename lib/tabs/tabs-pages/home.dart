@@ -4,6 +4,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../../widget/custom_radio.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
+import '../../widget/title.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -66,7 +68,7 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Title(),
+              TitlePage('Date du voyage'),
               SizedBox(height: 10),
               SingleChildScrollView(
                scrollDirection: Axis.horizontal,
@@ -224,20 +226,6 @@ class _HomePageState extends State<HomePage> {
           print('Tomorrow action');
         });
       },
-    );
-
-  }
-
-  _Title(){
-
-    return Text(
-      'Date du voyage',
-      style: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Color(0xFF4d4d4d),
-        fontFamily: 'OmegaBolder',
-      )
     );
 
   }

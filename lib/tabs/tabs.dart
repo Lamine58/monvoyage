@@ -1,6 +1,8 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:monvoyage/account/account.dart';
+import 'package:monvoyage/settings/settings.dart';
 import 'package:monvoyage/tabs/tabs-pages/home.dart';
 import 'package:monvoyage/tabs/tabs-pages/travels.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -30,8 +32,8 @@ class _TabsState extends State<Tabs> {
         return [
           HomePage(),
           Travels(),
-          Container(color: Colors.yellow),
-          Container(color: Colors.blue),
+          Account(),
+          Settings(),
         ];
     }
     List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -93,7 +95,7 @@ class _TabsState extends State<Tabs> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 500),
         ),
-        navBarStyle: NavBarStyle.style6, // Choose the nav bar style with this property.
+        navBarStyle: NavBarStyle.style8, // Choose the nav bar style with this property.
     ));
   }
 }

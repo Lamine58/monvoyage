@@ -34,16 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 80),
-                    Text(
-                      "Mon voyage",
-                      textAlign: TextAlign.center,
-                      textScaleFactor: 1.5,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        fontFamily: 'Omega',
-                      ),
+                    Image.asset(
+                      'assets/images/logo-tagah-blanc@300x.png',
+                      width: 200,
                     ),
                   ],
                 ),
@@ -56,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   padding: EdgeInsets.only(bottom: 15.0),
                   child: Image.asset(
                     'assets/images/logo.png',
-                    width: 100.0,
+                    width: 100,
                   ),
                 ),
               ),

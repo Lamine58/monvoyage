@@ -22,16 +22,9 @@ class _LangdingPageState extends State<LangdingPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      "Mon voyage",
-                      textAlign: TextAlign.center,
-                      textScaleFactor: 1.5,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        fontFamily: 'Omega',
-                      ),
+                    Image.asset(
+                      'assets/images/logo-tagah-blanc@300x.png',
+                      width: 150,
                     ),
                     SizedBox(height: 50),
                     Text(
