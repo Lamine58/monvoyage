@@ -1,0 +1,49 @@
+{
+  "buildCommand" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : false,
+    "targets" : null
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e989d8b2146a8145768218b852a9444a007"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e98312b4bc59bbbe2c06c205bf4da6737f5"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e9828cab1f188854e0a973e6ff6905c5ffe"
+    }
+  ],
+  "containerPath" : "/Users/isholahasrafidineabdel-lamine/Desktop/App-flutter/monvoyage/macos/Pods/Pods.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "",
+      "buildProductsPath" : "",
+      "derivedDataPath" : "/Users/isholahasrafidineabdel-lamine/Library/Developer/Xcode/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/isholahasrafidineabdel-lamine/Library/Developer/Xcode/DerivedData/Pods-cbunhkvuncvjenfimbkkslvdrmha/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/isholahasrafidineabdel-lamine/Library/Developer/Xcode/DerivedData/Pods-cbunhkvuncvjenfimbkkslvdrmha/Index.noindex/PrecompiledHeaders",
+      "pchPath" : ""
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : true,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : false
+}

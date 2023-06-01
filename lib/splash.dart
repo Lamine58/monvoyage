@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:monvoyage/functions/function.dart';
 import 'package:monvoyage/landing.dart';
+import 'package:monvoyage/tabs/tabs.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -8,15 +10,30 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  Future<void> initializeData() async {
+    var userData = await getUser();
+    setState(() {
+      if(userData!=null){
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Tabs(0)),
+        );
+      }else{
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LangdingPage()),
+        );
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     Timer(
       Duration(seconds: 3),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LangdingPage()),
-      ),
+      () => initializeData(),
     );
   }
 
