@@ -1,4 +1,4 @@
-package com.example.monvoyage
+package com.smahiley.tagahvoyage
 
 import io.flutter.embedding.android.FlutterActivity
 
