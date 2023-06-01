@@ -44,6 +44,10 @@ dependencies:
     sdk: flutter
   fluentui_system_icons: ^1.1.198
   flutter_launcher_icons: ^0.11.0
+  http: ^0.13.6
+  shared_preferences: ^2.1.1
+  sms_otp_auto_verify: ^2.1.0
+  flutter_map: ^4.0.0
 
 dev_dependencies:
   flutter_test:

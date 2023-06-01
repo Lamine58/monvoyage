@@ -1,14 +1,55 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:monvoyage/api/api.dart';
 import 'package:monvoyage/auth/sign-in.dart';
+import 'package:monvoyage/tabs/tabs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../functions/function.dart';
 import 'forget-password.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  late Api api = new Api();
+
+
+  Future<void> _setData(response) async {
+
+    final SharedPreferences prefs = await _prefs;
+
+    await prefs.setString('accessToken', response['datas']['accessToken']);
+    await prefs.setString('refreshToken', response['datas']['refreshToken']);
+
+    prefs.setString('user', json.encode(response)).then((bool success) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Tabs(0)
+        ),
+      );
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0,
+        toolbarHeight: 40,
         elevation: 0,
         backgroundColor: Color(0xFF11392b),
       ),
@@ -49,59 +90,82 @@ class Login extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  TextField(
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      labelText: 'Téléphone',
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      suffixIcon: Icon(Icons.phone),
-                      labelStyle: TextStyle(
-                        color: Colors.black,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10), // set border radius
-                      ),
-                      suffixIconColor: Colors.black,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10), // set border radius
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10), 
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Mot de passe',
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      suffixIcon: Icon(Icons.lock),
-                      labelStyle: TextStyle(
-                        color: Colors.black,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10), // set border radius
-                      ),
-                      suffixIconColor: Colors.black,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10), // set border radius
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent),
-                        borderRadius: BorderRadius.circular(10), 
-                      ),
-                    ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _email,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Veuillez saisir votre e-mail';
+                            }
+                            if(!validateEmail(_email.text)){
+                              return 'Veuillez saisir une adresse e-mail valide';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            suffixIcon: Icon(Icons.mail),
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10), // set border radius
+                            ),
+                            suffixIconColor: Colors.black,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10), // set border radius
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(10), 
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16.0),
+                        TextFormField(
+                          controller: _password,
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Veuillez s'il vous plait entrez votre mot de passe";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'Mot de passe',
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            suffixIcon: Icon(Icons.lock),
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10), // set border radius
+                            ),
+                            suffixIconColor: Colors.black,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10), // set border radius
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(10), 
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ),
                   SizedBox(height: 20.0),
                   GestureDetector(
                     onTap: () {
-                      // Naviguez vers la page de réinitialisation du mot de passe
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -122,8 +186,28 @@ class Login extends StatelessWidget {
                   SizedBox(
                     height: 55,
                     child:ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
+                      onPressed: () async {
+                          
+                        if (_formKey.currentState!.validate()) {
+
+                          startLoading(context);
+                          var response = await api.post('auth/login', {'email':_email.text,'password':_password.text});
+                          stopLoading(context);
+
+                          print(response);
+
+                          if(response['status']==null){
+                            openModal(context, 'Echec', "Une erreur c'est produite veuillez réessayer", FluentIcons.globe_desktop_24_regular);
+                          }else{
+                            if(!response['hasError']){
+                              _setData(response);
+                            }else{
+                              openModal(context, 'Echec', response['message'], FluentIcons.error_circle_24_regular);
+                            }
+                          }
+                          
+                          
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF1b9676),
@@ -139,13 +223,14 @@ class Login extends StatelessWidget {
                       SizedBox(width: 8.0),
                       GestureDetector(
                         onTap: () {
-                          // Naviguez vers la page d'inscription
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => SignIn()
                             ),
                           );
+
                         },
                         child: Text(
                           'Créer un compte',
@@ -156,40 +241,6 @@ class Login extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.0),
-                  // SizedBox(
-                  //   height: 55,
-                  //   child:ElevatedButton(
-                  //     onPressed: () {},
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: Color(0xff3b5998),
-                  //     ),
-                  //     child:Row(
-                  //       children : [
-                  //         Icon(Icons.facebook_sharp),
-                  //         SizedBox(width:10),
-                  //         Text('Continuer avec facebook',style: TextStyle(fontSize: 17,color: Colors.white)),
-                  //       ]
-                  //     )
-                  //   ),
-                  // ),
-                  // SizedBox(height: 16.0),
-                  // SizedBox(
-                  //   height: 55,
-                  //   child:ElevatedButton(
-                  //     onPressed: () {},
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: Color(0xff000000),
-                  //     ),
-                  //     child:Row(
-                  //       children : [
-                  //         Icon(Icons.apple_outlined),
-                  //         SizedBox(width:10),
-                  //         Text('Continuer avec apple',style: TextStyle(fontSize: 17,color: Colors.white)),
-                  //       ]
-                  //     )
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -198,4 +249,5 @@ class Login extends StatelessWidget {
       ),
     );
   }
+  
 }

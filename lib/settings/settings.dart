@@ -1,15 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:monvoyage/auth/login.dart';
 import 'package:monvoyage/auth/sign-in.dart';
+import 'package:monvoyage/functions/function.dart';
 import 'package:monvoyage/widget/title.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-
-import '../account/password.dart';
 import '../auth/forget-password.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+
+  final BuildContext context;
+  Settings(this.context);
+
   @override
-  Widget build(BuildContext context) {
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+
+  late bool isLoged = false;
+  
+  @override
+  initState() {
+    super.initState();
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    var userData = await getUser();
+    setState(() {
+      if(userData!=null){
+        isLoged = true;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext contextPage) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF11392b),
@@ -23,6 +49,7 @@ class Settings extends StatelessWidget {
           children: [
             TitlePage('Paramètres'),
             SizedBox(height: 20),
+            isLoged==true ? SizedBox() :
             Card(
               elevation: 4.0,
               shape: RoundedRectangleBorder(
@@ -32,7 +59,7 @@ class Settings extends StatelessWidget {
                 onTap: () {
                   // Naviguer vers la page "Mes informations"
                   Navigator.push(
-                    context,
+                    widget.context,
                     MaterialPageRoute(
                       builder: (context) => Login()
                     ),
@@ -51,6 +78,7 @@ class Settings extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.0),
+            isLoged==true ? SizedBox() :
             Card(
               elevation: 4.0,
               shape: RoundedRectangleBorder(
@@ -60,7 +88,7 @@ class Settings extends StatelessWidget {
                 onTap: () {
                   // Naviguer vers la page "Modifier le mot de passe"
                   Navigator.push(
-                    context,
+                    widget.context,
                     MaterialPageRoute(
                       builder: (context) => SignIn(),
                     ),
@@ -79,6 +107,7 @@ class Settings extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.0),
+            isLoged==true ? SizedBox() :
             Card(
               elevation: 4.0,
               shape: RoundedRectangleBorder(
@@ -88,7 +117,7 @@ class Settings extends StatelessWidget {
                 onTap: () {
                   // Naviguer vers la page "Modifier le mot de passe"
                   Navigator.push(
-                    context,
+                    widget.context,
                     MaterialPageRoute(
                       builder: (context) => ForgetPassword(),
                     ),
@@ -107,6 +136,7 @@ class Settings extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.0),
+            isLoged==false ? SizedBox() :
             Card(
               elevation: 4.0,
               shape: RoundedRectangleBorder(
@@ -114,13 +144,7 @@ class Settings extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  // Naviguer vers la page "Modifier le mot de passe"
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Login()
-                    ),
-                  );
+                  removeUser(widget.context);
                 },
                 child: Padding(
                   padding: EdgeInsets.all(25.0),

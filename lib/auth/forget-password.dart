@@ -5,7 +5,7 @@ class ForgetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 0,
+        toolbarHeight: 40,
         elevation: 0,
         backgroundColor: Color(0xFF11392b),
       ),

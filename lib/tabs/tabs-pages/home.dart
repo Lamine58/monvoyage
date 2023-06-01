@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:monvoyage/api/api.dart';
+import 'package:monvoyage/functions/function.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widget/custom_radio.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
@@ -24,16 +27,56 @@ class _HomePageState extends State<HomePage> {
   int site = 1;
   late DateTime _dateSelected =  DateTime.now();
   late String _choisir = 'Choisir';
+  var greeting = '';
+  late Api api = new Api();
   
-  void _changeLocation() {
-    setState(() {
+  Future<void> _changeLocation() async {
 
+    setState(() {
+      
         String start = _controller_start.text;
         String end = _controller_end.text;
         
         _controller_start.text = end;
         _controller_end.text = start;
 
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    
+    var userData = await getUser();
+    var refreshToken = await getRefreshToken();
+    
+    if(refreshToken!=null){
+
+      var response = await api.get('auth/refresh',{'Authorization': 'bearer $refreshToken'});
+      
+      if(response['status']!=null){
+        if(!response['hasError']){
+          await prefs.setString('accessToken', response['datas']['accessToken']);
+          await prefs.setString('refreshToken', response['datas']['refreshToken']);
+        }else{
+          print(response['message']);
+        }
+      }
+    }
+
+    setState(() {
+      if(userData!=null){
+        greeting = 'Salut ' + userData.fullname;
+      }else{
+        greeting = 'Bienvenue';
+      }
     });
   }
 
@@ -258,7 +301,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Salut Saint Cyr, ',
+                      '$greeting',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

@@ -33,7 +33,7 @@ class _TabsState extends State<Tabs> {
           HomePage(),
           Travels(),
           Account(),
-          Settings(),
+          Settings(context),
         ];
     }
     List<PersistentBottomNavBarItem> _navBarsItems() {
